@@ -1,0 +1,431 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>5.分页机制分析 · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="6.启动多个rcore.html" />
+    
+    
+    <link rel="prev" href="4.硬件分析.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="1.安装环境.html">
+            
+                <a href="1.安装环境.html">
+            
+                    
+                    1.安装环境
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="2.火苗平台简介.html">
+            
+                <a href="2.火苗平台简介.html">
+            
+                    
+                    2.火苗平台简介
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="3.启动流程分析.html">
+            
+                <a href="3.启动流程分析.html">
+            
+                    
+                    3.启动流程分析
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="4.硬件分析.html">
+            
+                <a href="4.硬件分析.html">
+            
+                    
+                    4.硬件分析
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.6" data-path="5.分页机制分析.html">
+            
+                <a href="5.分页机制分析.html">
+            
+                    
+                    5.分页机制分析
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="6.启动多个rcore.html">
+            
+                <a href="6.启动多个rcore.html">
+            
+                    
+                    6.启动多个rcore
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="." >5.分页机制分析</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <p>&#x5173;&#x4E8E;rics-v&#x5206;&#x9875;&#xFF0C;&#x5927;&#x90E8;&#x5206;&#x7684;&#x4FE1;&#x606F;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x4ECE;</p>
+<p><a href="https://rcore-os.github.io/rCore_tutorial_doc/chapter5/part2.html" target="_blank">&#x201C;&#x9B54;&#x6CD5;&#x201D;&#x2014;&#x2014;&#x5185;&#x6838;&#x521D;&#x59CB;&#x6620;&#x5C04;</a></p>
+<p><a href="https://learningos.github.io/rcore_step_by_step_webdoc/docs/&#x9875;&#x8868;&#x7B80;&#x4ECB;.html" target="_blank">&#x5206;&#x9875;&#x673A;&#x5236;&#x7684;&#x5B9E;&#x73B0;</a></p>
+<p>&#x8FD9;&#x4E24;&#x7BC7;&#x91CC;&#x4E00;&#x63A2;&#x7A76;&#x7ADF;&#xFF0C;</p>
+<h3 id="&#x65E0;&#x6CD5;&#x8FDB;&#x5165;&#x5185;&#x6838;">&#x65E0;&#x6CD5;&#x8FDB;&#x5165;&#x5185;&#x6838;</h3>
+<p>&#x706B;&#x82D7;&#x4E0A;&#x91C7;&#x7528;&#x7684;&#x5206;&#x9875;&#x673A;&#x5236;&#x662F;sv39&#xFF0C;&#x8FD9;&#x4ECE;dts&#x6587;&#x4EF6;&#x4E2D;&#x53EF;&#x4EE5;&#x770B;&#x5230;<code>mmu-type = &quot;riscv,sv39&quot;;</code></p>
+<p>&#x56E0;&#x4E3A;&#x662F;64&#x4F4D;&#x7684;&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#xFF0C;&#x5E76;&#x4E14;&#x662F;&#x5185;&#x6838;&#x7684;&#x521D;&#x59CB;&#x6620;&#x5C04;&#xFF0C;&#x91C7;&#x7528;&#x7684;&#x662F;&#x6700;&#x7B80;&#x5355;&#x7684;&#x5DE8;&#x9875;&#x6620;&#x5C04;&#xFF0C;&#x4E00;&#x6B21;&#x6620;&#x5C04;&#x4E00;&#x4E2A;G&#x4E2A;&#x7A7A;&#x95F4;&#x3002;&#x8BE6;&#x7EC6;&#x4FE1;&#x606F;&#x53C2;&#x8003;&#xFF1A;<a href="https://rcore-os.github.io/rCore_tutorial_doc/chapter5/part1.html" target="_blank">&#x9875;&#x8868;&#xFF1A;&#x4ECE;&#x865A;&#x62DF;&#x5185;&#x5B58;&#x5230;&#x7269;&#x7406;&#x5185;&#x5B58;</a></p>
+<p>&#x6211;&#x4EEC;&#x7684;bbl&#x5E76;&#x6CA1;&#x6709;&#x5F00;&#x542F;&#x9875;&#x673A;&#x5236;&#xFF0C;&#x56E0;&#x6B64;&#x5F53;&#x6211;&#x4EEC; kernel &#x7684;&#x7B2C;&#x4E00;&#x6761;&#x6307;&#x4EE4;&#x88AB;&#x6267;&#x884C;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x662F;&#x5DE5;&#x4F5C;&#x5728;&#x7269;&#x7406;&#x5730;&#x5740;&#x4E0A;&#x7684;&#x3002;&#x800C;&#x5F53;&#x6211;&#x4EEC;&#x8FDB;&#x5165; Rust &#x4EE3;&#x7801;&#x540E;&#xFF0C;&#x8FD0;&#x884C;&#x6808;&#x4E0A;&#x5C31;&#x5DF2;&#x7ECF;&#x4FDD;&#x5B58;&#x4E86;&#x4E00;&#x4E9B;&#x6307;&#x9488;&#x4FE1;&#x606F;&#xFF0C;&#x6B64;&#x65F6;&#x518D;&#x6539;&#x53D8;&#x5185;&#x6838;&#x5730;&#x5740;&#x5C31;&#x4F1A;&#x7834;&#x574F;&#x8FD0;&#x884C;&#x65F6;&#x4E0A;&#x4E0B;&#x6587;&#x3002;&#x56E0;&#x6B64;&#x6211;&#x4EEC;&#x5C06;&#x5207;&#x6362;&#x5730;&#x5740;&#x7A7A;&#x95F4;&#x7684;&#x5DE5;&#x4F5C;&#x653E;&#x5728;&#x521A;&#x8FDB;&#x5165;&#x5185;&#x6838; S &#x6001;&#x7684;&#x6C47;&#x7F16;&#x4EE3;&#x7801;&#x4E2D;&#x5B8C;&#x6210;&#x3002;</p>
+<p><strong>&#x8BF4;&#x660E;</strong>&#xFF1A;&#x8FD8;&#x8BB0;&#x5F97;&#x6211;&#x4EEC;&#x5728;&#x524D;&#x9762;&#x5206;&#x6790;&#x7684;&#x90A3;&#x4E2A;&#x6700;&#x5C0F;&#x5316;&#x5185;&#x6838;&#x7684;linux.bin&#xFF0C;&#x6211;&#x4EEC;&#x67E5;&#x770B;&#x5B83;&#x7684;&#x94FE;&#x63A5;&#x6587;&#x4EF6;&#xFF0C;&#x53D1;&#x73B0;&#x5176;&#x865A;&#x62DF;&#x5730;&#x5740;&#x662F;0xffffffff_8000_0000&#xFF0C;&#x5728;rCore_tutorial&#x91CC;&#xFF0C;rcore&#x7684;&#x865A;&#x62DF;&#x5730;&#x5740;&#x662F;0xffffffff_c020_0000&#xFF0C;&#xFF08;&#x4E5F;&#x5C31;&#x610F;&#x5473;&#x7740;opensbi&#x6240;&#x5BF9;&#x5E94;&#x865A;&#x62DF;&#x5730;&#x5740;&#x662F;0xffffffff_c000_0000&#xFF09;&#xFF0C;&#x5728;&#x8FD9;&#x91CC;&#x6211;&#x4EEC;&#x4F9D;&#x65E7;&#x9009;&#x62E9;&#x548C;rCore_tutorial&#x7684;&#x4FDD;&#x6301;&#x4E00;&#x81F4;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x8BF4;&#x6211;&#x4EEC;&#x7684;&#x7EBF;&#x5F62;&#x6620;&#x5C04;&#x662F;&#x4ECE;0xffffffff_c000_0000 -&gt; 0x1000_00000</p>
+<p>&#x5982;&#x679C;&#x6211;&#x4EEC;&#x6309;&#x7167;rCore_tutorial&#x91CC;&#x7684;entry64.asm&#xFF0C;<strong>&#x5DF2;&#x7ECF;&#x5C06;&#x8981;&#x6620;&#x5C04;&#x5230;&#x7684;&#x7269;&#x7406;&#x5730;&#x5740;0x8000_0000&#x4FEE;&#x6539;&#x4E3A;0x1000_00000</strong></p>
+<p>src/boot/entry64.asm</p>
+<pre><code class="lang-risc-v">    .section .text.entry
+    .globl _start
+_start:
+    # t0 := &#x4E09;&#x7EA7;&#x9875;&#x8868;&#x7684;&#x865A;&#x62DF;&#x5730;&#x5740;
+    lui     t0, %hi(boot_page_table_sv39)
+    # t1 := 0xffffffff40000000 &#x5373;&#x865A;&#x5B9E;&#x6620;&#x5C04;&#x504F;&#x79FB;&#x91CF;
+    li      t1, 0xffffffffc0000000 - 0x80000000
+    # t0 &#x51CF;&#x53BB;&#x865A;&#x5B9E;&#x6620;&#x5C04;&#x504F;&#x79FB;&#x91CF; 0xffffffff40000000&#xFF0C;&#x53D8;&#x4E3A;&#x4E09;&#x7EA7;&#x9875;&#x8868;&#x7684;&#x7269;&#x7406;&#x5730;&#x5740;
+    sub     t0, t0, t1
+    # t0 &gt;&gt;= 12&#xFF0C;&#x53D8;&#x4E3A;&#x4E09;&#x7EA7;&#x9875;&#x8868;&#x7684;&#x7269;&#x7406;&#x9875;&#x53F7;
+    srli    t0, t0, 12
+
+    # t1 := 8 &lt;&lt; 60&#xFF0C;&#x8BBE;&#x7F6E; satp &#x7684; MODE &#x5B57;&#x6BB5;&#x4E3A; Sv39
+    li      t1, 8 &lt;&lt; 60
+    # &#x5C06;&#x521A;&#x624D;&#x8BA1;&#x7B97;&#x51FA;&#x7684;&#x9884;&#x8BBE;&#x4E09;&#x7EA7;&#x9875;&#x8868;&#x7269;&#x7406;&#x9875;&#x53F7;&#x9644;&#x52A0;&#x5230; satp &#x4E2D;
+    or      t0, t0, t1
+    # &#x5C06;&#x7B97;&#x51FA;&#x7684; t0(&#x5373;&#x65B0;&#x7684;MODE|&#x9875;&#x8868;&#x57FA;&#x5740;&#x7269;&#x7406;&#x9875;&#x53F7;) &#x8986;&#x76D6;&#x5230; satp &#x4E2D;
+    csrw    satp, t0
+    # &#x4F7F;&#x7528; sfence.vma &#x6307;&#x4EE4;&#x5237;&#x65B0; TLB
+    sfence.vma
+    # &#x4ECE;&#x6B64;&#xFF0C;&#x6211;&#x4EEC;&#x7ED9;&#x5185;&#x6838;&#x642D;&#x5EFA;&#x51FA;&#x4E86;&#x4E00;&#x4E2A;&#x5B8C;&#x7F8E;&#x7684;&#x865A;&#x62DF;&#x5185;&#x5B58;&#x7A7A;&#x95F4;&#xFF01;
+
+    # &#x6211;&#x4EEC;&#x5728;&#x865A;&#x62DF;&#x5185;&#x5B58;&#x7A7A;&#x95F4;&#x4E2D;&#xFF1A;&#x968F;&#x610F;&#x5C06; sp &#x8BBE;&#x7F6E;&#x4E3A;&#x865A;&#x62DF;&#x5730;&#x5740;&#xFF01;
+    lui sp, %hi(bootstacktop)
+
+    # &#x6211;&#x4EEC;&#x5728;&#x865A;&#x62DF;&#x5185;&#x5B58;&#x7A7A;&#x95F4;&#x4E2D;&#xFF1A;&#x968F;&#x610F;&#x8DF3;&#x8F6C;&#x5230;&#x865A;&#x62DF;&#x5730;&#x5740;&#xFF01;
+    # &#x8DF3;&#x8F6C;&#x5230; rust_main
+    lui t0, %hi(rust_main)
+    addi t0, t0, %lo(rust_main)
+    jr t0
+
+    .section .data
+    # &#x7531;&#x4E8E;&#x6211;&#x4EEC;&#x8981;&#x628A;&#x8FD9;&#x4E2A;&#x9875;&#x8868;&#x653E;&#x5230;&#x4E00;&#x4E2A;&#x9875;&#x91CC;&#x9762;&#xFF0C;&#x56E0;&#x6B64;&#x5FC5;&#x987B; 12 &#x4F4D;&#x5BF9;&#x9F50;
+    .align 12
+# &#x5206;&#x914D; 4KiB &#x5185;&#x5B58;&#x7ED9;&#x9884;&#x8BBE;&#x7684;&#x4E09;&#x7EA7;&#x9875;&#x8868;
+boot_page_table_sv39:
+    # 0xffffffffc0000000 -&gt; 0x100000000 (1G)
+    .zero 8 * 506 
+    .quad (0x100000 &lt;&lt; 10) | 0xcf # VRWXAD
+</code></pre>
+<p>&#x6211;&#x4EEC;&#x4F1A;&#x53D1;&#x73B0;&#xFF0C;&#x6211;&#x4EEC;bbl&#x7684;&#x521D;&#x59CB;&#x5316;&#x4E4B;&#x540E;&#x8DF3;&#x8F6C;&#x4E0D;&#x5230;&#x5185;&#x6838;&#xFF0C;&#x95EE;&#x9898;&#x51FA;&#x5728;&#x54EA;&#x91CC;&#x5462;&#xFF1F;</p>
+<p><strong>&#x6211;&#x4EEC;&#x7684;bbl&#x5E76;&#x6CA1;&#x6709;&#x5F00;&#x542F;&#x9875;&#x673A;&#x5236;&#xFF0C;&#x56E0;&#x6B64;&#x5F53;&#x6211;&#x4EEC; kernel &#x7684;&#x7B2C;&#x4E00;&#x6761;&#x6307;&#x4EE4;&#x88AB;&#x6267;&#x884C;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x662F;&#x5DE5;&#x4F5C;&#x5728;&#x7269;&#x7406;&#x5730;&#x5740;&#x4E0A;&#x7684;&#x3002;</strong></p>
+<p>bbl &#x5C06;&#x5B83;&#x81EA;&#x5DF1;&#x653E;&#x5728; 0x1000_00000 &#x7684;&#x4F4D;&#x7F6E;&#xFF0C;boot &#x7ED3;&#x675F;&#x540E;&#x4F1A;&#x8DF3;&#x8F6C;&#x5230; 0x1002_00000&#xFF08;&#x5373;&#x6211;&#x4EEC;&#x7F16;&#x5199;&#x7684; os &#x7684;&#x4F4D;&#x7F6E;&#xFF09;&#x3002;&#x6240;&#x4EE5;&#x5728;&#x8FD9;&#x79CD;&#x60C5;&#x51B5;&#xFF0C;&#x6211;&#x4EEC;&#x8FD8;&#x9700;&#x8981;&#x6DFB;&#x52A0;&#x4E00;&#x4E2A;&#x81EA;&#x8EAB;&#x6620;&#x5C04;&#x3002;&#x5C06;bbl&#x6240;&#x5728;&#x7684;0x1000_00000&#x6620;&#x5C04;&#x5230;0x1000_00000&#x3002;</p>
+<h3 id="&#x6DFB;&#x52A0;&#x5BF9;&#x7B49;&#x6620;&#x5C04;">&#x6DFB;&#x52A0;&#x5BF9;&#x7B49;&#x6620;&#x5C04;</h3>
+<p>&#x6211;&#x4EEC;&#x7684;&#x76EE;&#x6807;&#x662F;&#x4ECE;0x1000_00000 -&gt; 0x1000_00000&#xFF0C;&#x7269;&#x7406;&#x5730;&#x5740;&#x7684;0x1000_00000&#x5F88;&#x7B80;&#x5355;&#xFF0C;&#x76F4;&#x63A5;&#x53EF;&#x4EE5;&#x5199;&#x8FDB;&#x9875;&#x76EE;&#x5F55;&#x9879;&#xFF0C;</p>
+<pre><code>.quad (0x100000 &lt;&lt; 10) | 0xcf
+</code></pre><p>&#x90A3;&#x4E48;&quot;&#x865A;&#x62DF;&#x5730;&#x5740;&#x7684;0x1000_00000&quot;&#x8BE5;&#x600E;&#x4E48;&#x4F53;&#x73B0;&#x5462;&#xFF1F;</p>
+<p><img src="https://rcore-os.github.io/rCore_tutorial_doc/chapter5/figures/sv39_pagetable.jpg" alt="sv39_pagetable"></p>
+<p>&#x8FD9;&#x4E2A;&#x6700;&#x7B80;&#x5355;&#x7684;&#x9875;&#x8868;&#x53EA;&#x5305;&#x542B;&#x4E00;&#x4E2A;&#x9875;&#x76EE;&#x5F55;&#xFF0C;&#x5360;&#x7528; 512 <em> 8 &#x7684;&#x7A7A;&#x95F4;&#x3002;&#x5728;&#x5176;&#x4E2D;&#x6211;&#x4EEC;&#x5BF9;&#x9700;&#x8981;&#x7528;&#x5230;&#x7684;&#x5730;&#x5740;&#x7A7A;&#x95F4;&#x5EFA;&#x7ACB; <em>*&#x5BF9;&#x7B49;&#x6620;&#x5C04;</em></em> &#xFF0C;&#x5373; <code>&#x865A;&#x62DF;&#x5730;&#x5740; = &#x7269;&#x7406;&#x5730;&#x5740;</code> &#x3002;&#x5177;&#x4F53;&#x800C;&#x8A00;&#xFF0C;&#x8FD9;&#x4E2A;&#x9875;&#x76EE;&#x5F55;&#x5305;&#x542B; 512&#x4E2A;&#x9875;&#x76EE;&#x5F55;&#x9879;&#xFF0C;&#x6BCF;&#x4E00;&#x9879;&#x5BF9;&#x5E94; 1G &#x5927;&#x5C0F;&#x7684;&#x5730;&#x5740;&#x7A7A;&#x95F4;&#xFF08;&#x5168;&#x662F;&#x5DE8;&#x9875;&#xFF09;&#x3002;</p>
+<p>&#x4ECE;&#x7B2C;&#x4E00;&#x9879;&#x5F00;&#x59CB;0x0000_0000&#xFF5E;0x4000_0000 &#x7B2C;&#x4E8C;&#x9879;0x4000_0000&#xFF5E;0x8000_0000&#x3002;&#x4F9D;&#x6B64;&#x7C7B;&#x63A8;&#xFF0C;&#x6700;&#x540E;&#x4E00;&#x9879;512&#x6070;&#x597D;&#x6620;&#x5C04;&#x5230;0xffffffff_c0000000,0xffffffff_ffffffff&#xFF0C;&#x6574;&#x4E2A;&#x9875;&#x8868;&#x6070;&#x597D;&#x6620;&#x5C04;&#x5230;&#x6574;&#x4E2A;&#x5730;&#x5740;&#x7A7A;&#x95F4;&#x3002;</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">&#x533A;&#x57DF;</th>
+<th>&#x5730;&#x5740;&#x7A7A;&#x95F4;</th>
+<th>PDX</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">&#x7B2C;&#x4E00;&#x9879;</td>
+<td>0x0000_0000-0x4000_0000 (1G)</td>
+<td>1</td>
+</tr>
+<tr>
+<td style="text-align:left">&#x7B2C;&#x4E8C;&#x9879;</td>
+<td>0x4000_0000-0x8000_0000 (1G)</td>
+<td>2</td>
+</tr>
+<tr>
+<td style="text-align:left">...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr>
+<td style="text-align:left">&#x81EA;&#x8EAB;&#x6620;&#x5C04;</td>
+<td>0x1000_00000-0x1400_00000(1G)</td>
+<td>5</td>
+</tr>
+<tr>
+<td style="text-align:left">...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr>
+<td style="text-align:left">&#x5185;&#x6838;</td>
+<td>0xffffffff_c0000000-0xffffffff_fffffffff</td>
+<td>512</td>
+</tr>
+</tbody>
+</table>
+<p>&#x843D;&#x5B9E;&#x5230;&#x4EE3;&#x7801;&#x4E0A;&#x3002;</p>
+<pre><code>boot_page_table_sv39:
+    # 0x100000000 -&gt; 0x100000000 (1G)
+    .zero 8 * 4
+    .quad (0x100000 &lt;&lt; 10) | 0xcf
+    # 0xffffffffc0000000 -&gt; 0x100000000 (1G)
+    .zero 8 * 506
+    .quad (0x100000 &lt;&lt; 10) | 0xcf # VRWXAD
+</code></pre><h3 id="&#x53D6;&#x6D88;&#x5BF9;&#x7B49;&#x6620;&#x5C04;">&#x53D6;&#x6D88;&#x5BF9;&#x7B49;&#x6620;&#x5C04;</h3>
+<p>&#x4FDD;&#x7559; 0x80400000 &#x7684;&#x5BF9;&#x7B49;&#x6620;&#x5C04;&#xFF0C;&#x662F;&#x56E0;&#x4E3A;&#x5728;&#x5F00;&#x542F;&#x5206;&#x9875;&#x7684;&#x4E00;&#x77AC;&#x95F4;&#xFF0C;PC &#x4ECD;&#x7136;&#x6307;&#x5411;&#x7269;&#x7406;&#x5730;&#x5740;&#x3002;&#x5982;&#x679C;&#x64A4;&#x6389;&#x4E86;&#x5BF9;&#x7B49;&#x6620;&#x5C04;&#xFF0C;&#x90A3;&#x4E48;&#x5728;&#x8BBE;&#x7F6E; satp &#x7684;&#x4E0B;&#x4E00;&#x6761;&#x6307;&#x4EE4;&#x4F1A;&#x7ACB;&#x5373;&#x89E6;&#x53D1;&#x7F3A;&#x9875;&#x5F02;&#x5E38;&#x3002;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x4E00;&#x6BB5;&#x540C;&#x65F6;&#x5B58;&#x5728;&#x4E24;&#x79CD;&#x6620;&#x5C04;&#x7684;&#x8FC7;&#x6E21;&#x671F;&#x6765;&#x5207;&#x6362; PC &#xFF0C;&#x4E4B;&#x540E;&#x5C31;&#x53EF;&#x4EE5;&#x53D6;&#x6D88;&#x8FD9;&#x4E2A;&#x5BF9;&#x7B49;&#x6620;&#x5C04;&#x3002;&#x5177;&#x4F53;&#x4EE3;&#x7801;&#x5982;&#x4E0B;&#xFF1A;</p>
+<pre><code>    # updata PC to 0xffffffffcxxxxxxxx
+    lui     t0, %hi(remove_identity_map)
+    addi    t0, t0, %lo(remove_identity_map)
+    jr      t0
+    # remove identity map
+remove_identity_map:
+    lui     t0, %hi(boot_page_table_sv39)
+    sw      zero, (8 * 4)(t0)
+</code></pre><p>&#x6211;&#x4EEC;&#x4F7F;&#x7528;&#x7EDD;&#x5BF9;&#x8DF3;&#x8F6C;&#x6307;&#x4EE4;&#x6765;&#x5207;&#x6362; PC &#xFF1A;&#x9996;&#x5148;&#x5B9A;&#x4E49;&#x4E00;&#x4E2A;&#x7B26;&#x53F7; <code>remove_identity_map</code>&#xFF0C;&#x7136;&#x540E;&#x5C06;&#x5176;&#x865A;&#x5730;&#x5740;&#x52A0;&#x8F7D;&#x5230;&#x5BC4;&#x5B58;&#x5668; <code>t0</code> &#xFF0C;&#x6700;&#x540E;&#x4F7F;&#x7528; <code>jr</code> &#x6307;&#x4EE4;&#x8DF3;&#x8F6C;&#x5230; <code>t0</code> &#x6307;&#x5411;&#x7684;&#x5730;&#x5740;&#x3002;</p>
+<p>&#x73B0;&#x5728; PC &#x5DF2;&#x7ECF;&#x6307;&#x5411;&#x865A;&#x62DF;&#x5730;&#x5740;&#x7A7A;&#x95F4;&#x4E86;&#xFF0C;&#x5C31;&#x53EF;&#x4EE5;&#x64A4;&#x9500;&#x5BF9;&#x7B49;&#x6620;&#x5C04;&#x4E86;&#xFF1A;&#x6211;&#x4EEC;&#x5411;&#x4E0B;&#x6807;&#x4E3A;5&#x7684;&#x9875;&#x8868;&#x9879;&#x5730;&#x5740;&#x5904;&#x5199;&#x5165; 0&#xFF0C;&#x968F;&#x540E;&#x5237;&#x65B0;TLB&#x3002;</p>
+<pre><code>    sfence.vma
+</code></pre><p>&#x518D;&#x6B21;&#x7F16;&#x8BD1;&#x8FD0;&#x884C;&#xFF0C;&#x53EF;&#x4EE5;&#x6B63;&#x5E38;&#x8FDB;&#x5165; Rust &#x4EE3;&#x7801;&#x3002;&#x5728;&#x706B;&#x82D7;&#x4E0A;&#x4E5F;&#x80FD;&#x6253;&#x5370;&#x51FA;&#x4E86;&#x76F8;&#x5173;&#x4FE1;&#x606F;&#x3002;</p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="4.硬件分析.html" class="navigation navigation-prev " aria-label="Previous page: 4.硬件分析">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="6.启动多个rcore.html" class="navigation navigation-next " aria-label="Next page: 6.启动多个rcore">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"5.分页机制分析","level":"1.6","depth":1,"next":{"title":"6.启动多个rcore","level":"1.7","depth":1,"path":"6.启动多个rcore.md","ref":"6.启动多个rcore.md","articles":[]},"previous":{"title":"4.硬件分析","level":"1.5","depth":1,"path":"4.硬件分析.md","ref":"4.硬件分析.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"5.分页机制分析.md","mtime":"2020-06-26T03:37:55.875Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-06-29T01:14:44.467Z"},"basePath":".","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="gitbook/gitbook.js"></script>
+    <script src="gitbook/theme.js"></script>
+    
+        
+        <script src="gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

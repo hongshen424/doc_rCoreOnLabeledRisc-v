@@ -1,0 +1,426 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>6.启动多个rcore · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    
+    <link rel="prev" href="5.分页机制分析.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="1.安装环境.html">
+            
+                <a href="1.安装环境.html">
+            
+                    
+                    1.安装环境
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="2.火苗平台简介.html">
+            
+                <a href="2.火苗平台简介.html">
+            
+                    
+                    2.火苗平台简介
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="3.启动流程分析.html">
+            
+                <a href="3.启动流程分析.html">
+            
+                    
+                    3.启动流程分析
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="4.硬件分析.html">
+            
+                <a href="4.硬件分析.html">
+            
+                    
+                    4.硬件分析
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="5.分页机制分析.html">
+            
+                <a href="5.分页机制分析.html">
+            
+                    
+                    5.分页机制分析
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.7" data-path="6.启动多个rcore.html">
+            
+                <a href="6.启动多个rcore.html">
+            
+                    
+                    6.启动多个rcore
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="." >6.启动多个rcore</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h3 id="&#x542F;&#x52A8;&#x591A;&#x4E2A;rcore">&#x542F;&#x52A8;&#x591A;&#x4E2A;rcore</h3>
+<p>&#x7EC8;&#x4E8E;&#x6211;&#x4EEC;&#x6765;&#x5230;&#x4E86;&#x6700;&#x540E;&#x4E00;&#x6B65;&#xFF0C;&#x542F;&#x52A8;&#x591A;&#x4E2A;rcore</p>
+<p>&#x5176;&#x5B9E;&#x5F88;&#x7B80;&#x5355;&#xFF0C;&#x53EA;&#x8981;&#x5C0F;&#x5C0F;&#x7684;&#x4FEE;&#x6539;&#x4E00;&#x4E0B;encoding.h&#xFF0C;&#x5C06;&#x91CC;&#x9762;&#x7684;<code>//define NOHYPE</code>&#x6CE8;&#x91CA;&#x53BB;&#x6389;&#xFF0C;&#x5373;&#x53EF;&#x542F;&#x52A8;&#x8D77;&#x6765;&#x591A;&#x4E2A;rcore&#x3002;</p>
+<p>&#x8BDD;&#x8BF4;&#x7684;&#x7B80;&#x5355;&#xFF0C;&#x4E0D;&#x8FC7;&#x8FD8;&#x9700;&#x8981;&#x6539;&#x52A8;&#x4E00;&#x4E0B;Makefile&#x6587;&#x4EF6;&#xFF0C;&#x9644;&#x4E0A;&#x4FEE;&#x6539;&#x597D;&#x540E;&#x7684;&#x4EE3;&#x7801;</p>
+<pre><code class="lang-makefile"><span class="hljs-comment"># check RISCV environment variable</span>
+ifndef RISCV
+$(error Please set environment variable RISCV. Please take a look at README)
+endif
+
+build_dir = <span class="hljs-variable">$(realpath ./build)</span>
+SW_PATH = <span class="hljs-variable">$(abspath ../sw)</span>
+
+<span class="hljs-comment">#--------------------------------------------------------------------</span>
+<span class="hljs-comment"># Build tools</span>
+<span class="hljs-comment">#--------------------------------------------------------------------</span>
+
+RISCV_PREFIX=riscv64-unknown-elf-
+CC = <span class="hljs-variable">$(RISCV_PREFIX)</span>gcc
+LD = <span class="hljs-variable">$(RISCV_PREFIX)</span>ld
+RISCV_COPY = <span class="hljs-variable">$(RISCV_PREFIX)</span>objcopy
+RISCV_COPY_FLAGS = --set-section-flags .bss=alloc,contents --set-section-flags .sbss=alloc,contents -O binary
+
+<span class="hljs-comment">#--------------------------------------------------------------------</span>
+<span class="hljs-comment"># BBL variables</span>
+<span class="hljs-comment">#--------------------------------------------------------------------</span>
+
+BBL_REPO_PATH = <span class="hljs-variable">$(SW_PATH)</span>/riscv-pk
+BBL_BUILD_COMMIT = 852a0cfcb4ca5d8939cf1f4f4edc898ba6c9fa50
+
+BBL_BUILD_PATH = <span class="hljs-variable">$(BBL_REPO_PATH)</span>/build
+BBL_ELF_BUILD = <span class="hljs-variable">$(BBL_BUILD_PATH)</span>/bbl
+
+BBL_PAYLOAD = <span class="hljs-variable">$(LINUX_ELF)</span>
+BBL_CONFIG = --host=riscv64-unknown-elf --with-payload=<span class="hljs-variable">$(BBL_PAYLOAD)</span> --with-arch=rv64imac --enable-logo
+
+BBL_ELF = <span class="hljs-variable">$(build_dir)</span>/bbl.elf
+BBL_BIN = <span class="hljs-variable">$(build_dir)</span>/kernel.bin
+
+<span class="hljs-comment">#--------------------------------------------------------------------</span>
+<span class="hljs-comment"># Linux variables</span>
+<span class="hljs-comment">#--------------------------------------------------------------------</span>
+
+LINUX_REPO_PATH = <span class="hljs-variable">$(SW_PATH)</span>/riscv-os
+
+LINUX_ELF_BUILD = <span class="hljs-variable">$(LINUX_REPO_PATH)</span>/xy_os
+LINUX_ELF = <span class="hljs-variable">$(build_dir)</span>/xy_os
+
+<span class="hljs-comment">#--------------------------------------------------------------------</span>
+<span class="hljs-comment"># BBL rules</span>
+<span class="hljs-comment">#--------------------------------------------------------------------</span>
+
+bbl: $(BBL_BIN)
+
+$(BBL_BIN): $(BBL_ELF)
+    $(RISCV_COPY) $(RISCV_COPY_FLAGS) $&lt; $@
+
+$(BBL_ELF): $(BBL_ELF_BUILD)
+    ln -sf $(abspath $&lt;) $@
+
+$(BBL_REPO_PATH): | $(SW_PATH)
+<span class="hljs-comment">#    mkdir -p $@</span>
+<span class="hljs-comment">#    git clone https://github.com/LvNA-system/riscv-pk.git $@</span>
+
+$(BBL_BUILD_PATH): $(BBL_PAYLOAD) | $(BBL_REPO_PATH)
+    mkdir -p $@
+    cd $@ &amp;&amp; \
+        git checkout $(BBL_BUILD_COMMIT) &amp;&amp; \
+        ($(BBL_REPO_PATH)/configure $(BBL_CONFIG) || (git checkout @{-1}; false)) &amp;&amp; \
+        git checkout @{-1}
+
+$(BBL_ELF_BUILD): | $(BBL_BUILD_PATH)
+    cd $(@D) &amp;&amp; \
+        git checkout $(BBL_BUILD_COMMIT) &amp;&amp; \
+        ($(RFS_ENV) $(MAKE) || (git checkout @{-1}; false)) &amp;&amp; \
+         git checkout @{-1}
+bbl-clean:
+
+    -rm $(BBL_ELF) $(BBL_BIN)
+    -$(RFS_ENV) $(MAKE) clean -C $(BBL_BUILD_PATH)
+<span class="hljs-meta"><span class="hljs-meta-keyword">.PHONY</span>: bbl bbl-clean $(BBL_ELF_BUILD)</span>
+
+<span class="hljs-comment">#--------------------------------------------------------------------</span>
+<span class="hljs-comment"># Linux rules</span>
+<span class="hljs-comment">#--------------------------------------------------------------------</span>
+linux: $(LINUX_ELF)
+
+$(LINUX_ELF): $(LINUX_ELF_BUILD)
+     ln -sf $(abspath $&lt;) $@
+
+<span class="hljs-comment">#--------------------------------------------------------------------</span>
+<span class="hljs-comment"># Software top-level rules</span>
+<span class="hljs-comment">#--------------------------------------------------------------------</span>
+
+sw: bbl
+
+<span class="hljs-section">clean:</span>
+    rm -rf $(build_dir)/bbl.elf $(build_dir)/kernel.bin $(build_dir)/xy_os
+<span class="hljs-comment">#    rm -rf $(SW_PATH)/riscv-pk</span>
+<span class="hljs-comment">#    rm -rf $(SW_PATH)/riscv-os/xy_os </span>
+<span class="hljs-meta"><span class="hljs-meta-keyword">.PHONY</span>: sw clean</span>
+</code></pre>
+<p><strong>&#x6CE8;&#x610F;1</strong>&#xFF1A;&#x6211;&#x6CE8;&#x91CA;&#x6389;&#x4E86;<code>#    git clone https://github.com/LvNA-system/riscv-pk.git $@</code>&#x8FD9;&#x4E00;&#x884C;&#xFF0C;&#x6240;&#x4EE5;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x4E8B;&#x5148;&#x5728;sw&#x8DEF;&#x5F84;&#x4E0B;git clone &#x597D;&#x6211;&#x4EEC;&#x7684;riscv-pk&#xFF0C;&#x6CE8;&#x91CA;&#x6389;&#x7684;&#x539F;&#x56E0;&#xFF0C;&#x662F;&#x56E0;&#x4E3A;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x4FEE;&#x6539;riscv-pk/machine/encoding.h&#x91CC;&#x7684;<code>//define NOHYPE</code>f&#x3002;</p>
+<p><strong>&#x6CE8;&#x610F;2</strong>&#xFF1A;&#x6211;&#x4EEC;&#x5728;&#x6BCF;&#x6B21;&#x751F;&#x6210;&#x65B0;&#x7684;kernel.bin&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x9700;&#x8981;&#x5220;&#x9664;&#x6389;riscv-pk&#x4E0B;&#x7684;build&#x6587;&#x4EF6;&#x5939;&#xFF0C;&#x6587;&#x4EF6;&#x5939;&#x91CC;&#x662F;&#x751F;&#x6210;&#x7684;.o&#x6587;&#x4EF6;&#xFF0C;&#x56E0;&#x4E3A;riscv-pk&#x91C7;&#x53D6;&#x7684;&#x662F;&#x589E;&#x91CF;&#x7F16;&#x8BD1;&#xFF0C;&#x6240;&#x4EE5;&#x5982;&#x679C;&#x4E0D;&#x5168;&#x5220;&#x6389;&#x7684;&#x8BDD;&#xFF0C;&#x5B83;&#x4EEC;&#x4F1A;&#x6CA1;&#x529E;&#x6CD5;&#x5904;&#x7406;&#x597D;&#x591A;&#x7CFB;&#x7EDF;&#x4E4B;&#x95F4;&#x7684;&#x4F9D;&#x8D56;&#x5173;&#x7CFB;&#x3002;&#x5BFC;&#x81F4;&#x8FD0;&#x884C;&#x51FA;&#x9519;&#x3002;</p>
+<h3 id="smp&#x6A21;&#x5F0F;&#x548C;nohype&#x6A21;&#x5F0F;">smp&#x6A21;&#x5F0F;&#x548C;nohype&#x6A21;&#x5F0F;</h3>
+<p>&#x4E4B;&#x524D;&#x6211;&#x4EEC;&#x5728;&#x542F;&#x52A8;&#x6700;&#x5C0F;&#x5316;linux&#x955C;&#x50CF;linux.bin&#x662F;&#x5728;smp&#x6A21;&#x5F0F;&#x4E0B;&#x542F;&#x52A8;&#x7684;&#xFF0C;&#x5373;&#x811A;&#x672C;&#x662F;</p>
+<pre><code>#!/usr/bin/env bash
+
+#sysctl net.ipv4.ip_forward=0
+./nohype_settings 0
+./4-core-reset linux.bin 4.dtb.small 1.dtb 2.dtb 3.dtb 0x00000000 0x20000000 0x40000000 0x60000000
+
+#sh nat.sh
+#ssh-keygen -f &quot;/root/.ssh/known-hosts&quot; -R 192.168.1.2
+</code></pre><p>&#x4F46;&#x662F;&#x4F7F;&#x7528;&#x6B64;&#x811A;&#x672C;&#x4F1A;&#x51FA;&#x73B0;&#x4E32;&#x53E3;&#x4E71;&#x7801;&#x7684;&#x95EE;&#x9898;&#x3002;</p>
+<p><strong>&#x8FD9;&#x91CC;&#x6211;&#x4EEC;&#x5728;nohype&#x6A21;&#x5F0F;&#x4E0B;&#x542F;&#x52A8;</strong></p>
+<p>&#x9996;&#x5148;&#x540C;&#x6837;&#x5728;encoding.h&#x4E0B;&#xFF0C;&#x5C06;&#x91CC;&#x9762;&#x7684;<code>//define NOHYPE</code>&#x6CE8;&#x91CA;&#x53BB;&#x6389;</p>
+<p>&#x4F7F;&#x7528;&#x4EE5;&#x4E0B;&#x811A;&#x672C;&#x5373;&#x53EF;</p>
+<pre><code>#!/usr/bin/env bash
+
+sysctl net.ipv4.ip_forward=0
+./nohype_settings 5
+./4-core-reset kernel .bin 0.dtb 1.dtb 2.dtb 3.dtb 0x00000000 0x20000000 0x40000000 0x60000000
+</code></pre><h2 id="&#x7ED3;&#x679C;">&#x7ED3;&#x679C;</h2>
+<p>&#x9644;&#x4E0A;&#x6700;&#x540E;&#x6210;&#x529F;&#x7684;&#x56FE;</p>
+<p><img src="https://i.loli.net/2020/05/13/GBVDRwC6XKzrEcY.png" alt="&#x5C4F;&#x5E55;&#x5FEB;&#x7167; 2020-05-13 &#x4E0B;&#x5348;11.22.26.png"></p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="5.分页机制分析.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: 5.分页机制分析">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"6.启动多个rcore","level":"1.7","depth":1,"previous":{"title":"5.分页机制分析","level":"1.6","depth":1,"path":"5.分页机制分析.md","ref":"5.分页机制分析.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"6.启动多个rcore.md","mtime":"2020-06-28T15:10:09.594Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-06-29T01:14:44.467Z"},"basePath":".","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="gitbook/gitbook.js"></script>
+    <script src="gitbook/theme.js"></script>
+    
+        
+        <script src="gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

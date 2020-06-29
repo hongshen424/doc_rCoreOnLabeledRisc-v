@@ -1,0 +1,527 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>2.火苗平台简介 · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="3.启动流程分析.html" />
+    
+    
+    <link rel="prev" href="1.安装环境.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="1.安装环境.html">
+            
+                <a href="1.安装环境.html">
+            
+                    
+                    1.安装环境
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.3" data-path="2.火苗平台简介.html">
+            
+                <a href="2.火苗平台简介.html">
+            
+                    
+                    2.火苗平台简介
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="3.启动流程分析.html">
+            
+                <a href="3.启动流程分析.html">
+            
+                    
+                    3.启动流程分析
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="4.硬件分析.html">
+            
+                <a href="4.硬件分析.html">
+            
+                    
+                    4.硬件分析
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="5.分页机制分析.html">
+            
+                <a href="5.分页机制分析.html">
+            
+                    
+                    5.分页机制分析
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="6.启动多个rcore.html">
+            
+                <a href="6.启动多个rcore.html">
+            
+                    
+                    6.启动多个rcore
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="." >2.火苗平台简介</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h2 id="&#x706B;&#x82D7;&#x5E73;&#x53F0;&#x7B80;&#x4ECB;">&#x706B;&#x82D7;&#x5E73;&#x53F0;&#x7B80;&#x4ECB;</h2>
+<p>&#x706B;&#x82D7;&#x7CFB;&#x7EDF;&#x662F;&#x4E2D;&#x56FD;&#x79D1;&#x5B66;&#x9662;&#x8BA1;&#x7B97;&#x6280;&#x672F;&#x7814;&#x7A76;&#x6240;&#x7814;&#x53D1;&#x7684;&#xFF0C;&#x57FA;&#x4E8E;&#x601D;&#x6C83;&#xFF08;SERVE&#xFF09;&#x5E73;&#x53F0;&#x4E0B;&#x7684;&#x4E91;&#x670D;&#x52A1;&#x7248;&#xFF08;SEVER.c&#xFF09;&#x4EE5;&#x53CA;&#x6807;&#x7B7E;&#x5316;&#x51AF;&#x8BFA;&#x4F0A;&#x66FC;&#x4F53;&#x7CFB;&#x7ED3;&#x6784;&#x7248;&#xFF08;SERVE.v&#xFF09;&#x7684;&#x4E24;&#x8005;&#x7ED3;&#x5408;&#x7684;FPGA&#x5E73;&#x53F0;&#x3002;&#x5177;&#x6709;&#x4F4E;&#x6210;&#x672C;&#xFF0C;&#x4EF7;&#x683C;&#x4F4E;&#x4E8E;&#xA5;1000&#xFF1B;&#x4F4E;&#x529F;&#x8017;&#xFF0C;USB&#x63A5;&#x53E3;&#x76F4;&#x63A5;&#x4F9B;&#x7535;&#xFF1B;&#x4F4E;&#x95E8;&#x69DB;&#xFF0C;&#x5F00;&#x6E90;&#x8F6F;&#x786C;&#x4EF6;&#x8BBE;&#x8BA1;&#xFF1B;&#x9AD8;&#x53EF;&#x9760;&#xFF0C;&#x76F4;&#x63A5;&#x4F7F;&#x7528;ARM SoC&#x5916;&#x8BBE;&#x63A7;&#x5236;&#x5668;IP&#x786C;&#x6838;&#xFF1B;&#x5728;&#x7EBF;&#x4F7F;&#x7528;&#xFF0C;&#x901A;&#x8FC7;&#x6807;&#x51C6;&#x4EE5;&#x592A;&#x7F51;ssh&#x8FDC;&#x7A0B;&#x767B;&#x5F55;&#x4F7F;&#x7528;&#x7B49;&#x7279;&#x70B9;&#x3002;SERVE.v&#x7248;&#x672C;&#x5219;&#x662F;Labeled RISC-V FPGA&#x7684;&#x539F;&#x578B;&#x7CFB;&#x7EDF;&#x914D;&#x7F6E;&#x7248;&#x672C;&#x3002;&#x62E5;&#x6709;4&#x4E2A;rocket&#x6838;&#x5FC3;&#x3002;16KB&#x7684;&#x4E00;&#x7EA7;&#x6307;&#x4EE4;&#x7F13;&#x5B58;&#xFF0C;16KB &#x7684;&#x4E00;&#x7EA7;&#x6570;&#x636E;&#x7F13;&#x5B58;&#xFF0C;2MB&#x7684;&#x4E8C;&#x7EA7;&#x7F13;&#x5B58;&#x3002;&#x5343;&#x5146;&#x4EE5;&#x592A;&#x7F51;&#x3002;&#x53EF;&#x8FD0;&#x884C;Redis&#x3001;Memcached&#x7B49;&#x5E94;&#x7528;&#x3002;&#x5F53;&#x7136;&#xFF0C;&#x652F;&#x6301;&#x6807;&#x7B7E;&#x5316;&#x7279;&#x8272;&#x7684;&#x6027;&#x80FD;&#x8C03;&#x63A7;&#x6280;&#x672F;&#x3002;</p>
+<h2 id="ssh&#x5230;&#x706B;&#x82D7;&#x5E73;&#x53F0;">SSH&#x5230;&#x706B;&#x82D7;&#x5E73;&#x53F0;</h2>
+<p><a href="https://blog.csdn.net/cyl937/article/details/44203759" target="_blank">ssh&#x6307;&#x5B9A;&#x767B;&#x9646;&#x7528;&#x6237;</a></p>
+<pre><code>$ ssh -p 2234 thu_chenyu@159.226.41.100
+</code></pre><p>&#x6B64;&#x65F6;&#x8FDE;&#x4E0A;&#x4E86;&#x8DF3;&#x677F;&#x673A;&#xFF0C;&#x5728;&#x8DF3;&#x677F;&#x673A;&#x4E0A;&#x6267;&#x884C;&#x3002;</p>
+<pre><code>ssh fidus84
+</code></pre><p>&#x8FDE;&#x4E0A;&#x4E86;&#x706B;&#x82D7;&#x5E73;&#x53F0;&#x3002;</p>
+<p>&#x51E0;&#x70B9;&#x8BF4;&#x660E;&#xFF1A;</p>
+<p>(1)&#x706B;&#x82D7;&#x4E0A;&#x7684;ARM&#x53EA;&#x662F;&#x4E00;&#x4E2A;&#x8D1F;&#x8D23;&#x63A7;&#x5236;FPGA&#x5E73;&#x53F0;&#x7684;&#x6838;&#x5FC3;.</p>
+<p>(2)&#x76EE;&#x524D;&#x8FD9;&#x4E2A;labeled riscv&#x4E3B;&#x8981;IO&#x5C31;&#x662F; &#x4E32;&#x53E3;&#x548C;&#x4EE5;&#x592A;&#x7F51;</p>
+<h2 id="&#x706B;&#x82D7;&#x7CFB;&#x7EDF;&#x542F;&#x52A8;linux&#x7684;&#x8FC7;&#x7A0B;">&#x706B;&#x82D7;&#x7CFB;&#x7EDF;&#x542F;&#x52A8;Linux&#x7684;&#x8FC7;&#x7A0B;</h2>
+<p><a href="https://blog.csdn.net/honour2sword/article/details/45248121" target="_blank">&#x591A;&#x6838;:&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;3&#x79CD;&#x5904;&#x7406;&#x6A21;&#x5F0F;(SMP+AMP+BMP)</a></p>
+<p>cat ~/master/nohype_run`</p>
+<pre><code>#!/usr/bin/env bash
+
+sysctl net.ipv4.ip_forward=0
+./nohype_settings 5
+./4-core-reset linux.nohype 0.dtb 1.dtb 2.dtb 3.dtb 0x00000000 0x20000000 0x40000000 0x60000000
+</code></pre><p>&#x5206;&#x522B;&#x89E3;&#x91CA;&#x8FD9;&#x4E24;&#x6761;&#x547D;&#x4EE4;</p>
+<p><code>./nohype_settings</code> &#x548C;<code>./4-core-reset</code></p>
+<p>1&#x3001;&#x5728;&#x4E0D;&#x52A0;&#x53C2;&#x6570;&#x6267;&#x884C;<code>./nohype_settings</code> &#x65F6;</p>
+<p><code>distinct dsid [*], reset to hang [ ], mem partition [*]</code></p>
+<p>&#x8868;&#x793A;&#x7684;&#x542B;&#x4E49;&#x662F;&#xFF1A;&#x5728;nohype&#x6A21;&#x5F0F;&#x4E4B;&#x4E0B;&#xFF0C;&#x590D;&#x4F4D;&#x7684;&#x6548;&#x679C;&#x662F;</p>
+<p><code>distinct dsid [*]</code>:&#x6BCF;&#x4E2A;&#x6838;&#x4F7F;&#x7528;&#x4E0D;&#x540C;&#x7684;dsid&#xFF0C;</p>
+<p><code>reset to hang [ ]</code>:&#x8BBE;&#x7F6E;&#x7684;&#x4E24;&#x79CD;&#x590D;&#x4F4D;&#x65B9;&#x6848;&#xFF0C;&#x4E00;&#x79CD;&#x662F;&#x6B63;&#x5E38;&#x590D;&#x4F4D;&#xFF0C;&#x4E00;&#x79CD;&#x662F;&#x590D;&#x4F4D;&#x5230;bootroom&#x91CC;&#x9762;&#x4E00;&#x4E2A;&#x6B7B;&#x5FAA;&#x73AF;&#xFF0C;</p>
+<p><code>`mem partition</code> : &#x628A;&#x5185;&#x5B58;&#x53C2;&#x6570;&#x8BBE;&#x7F6E;&#x6210;&#x5206;&#x6BB5;</p>
+<p>5&#x7684;&#x542B;&#x4E49;&#x5C31;&#x662F;&#x4E8C;&#x8FDB;&#x5236;&#x4E0B;&#x7684;101&#xFF0C;&#x5206;&#x522B;&#x5BF9;&#x5E94;&#x4E09;&#x4E2A;&#x4E2D;&#x62EC;&#x53F7;&#xFF0C;1&#x662F;ture&#xFF0C;0&#x662F;false&#x3002;</p>
+<p>2&#x3001;<code>./4-core-reset</code></p>
+<p>&#x8BA9;&#x6211;&#x4EEC;&#x6765;&#x770B;&#x4E00;&#x4E0B;&#x6E90;&#x7801;</p>
+<pre><code class="lang-c"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdio.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdlib.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdint.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;memory.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;unistd.h&gt;</span>  </span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;sys/mman.h&gt;</span>  </span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;sys/types.h&gt;</span>  </span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;sys/stat.h&gt;</span>  </span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;fcntl.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;elf.h&gt;</span></span>
+
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;assert.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;sys/time.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;time.h&gt;</span></span>
+
+<span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> DDR_TOTAL_SIZE        0x80000000</span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> DDR_BASE_ADDR        ((uintptr_t)0x800000000)</span>
+
+<span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> GPIO_RESET_TOTAL_SIZE    0x1000</span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> GPIO_RESET_BASE_ADDR    0x80010000</span>
+
+<span class="hljs-keyword">void</span> *ddr_base;
+<span class="hljs-keyword">volatile</span> <span class="hljs-keyword">uint32_t</span> *gpio_reset_base;
+<span class="hljs-keyword">int</span>    fd;
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">loader</span><span class="hljs-params">(<span class="hljs-keyword">char</span> *imgfile, <span class="hljs-keyword">char</span> *dtbfile, <span class="hljs-keyword">int</span> offset)</span> </span>{
+    FILE *fp = fopen(imgfile, <span class="hljs-string">&quot;rb&quot;</span>);
+    assert(fp);
+
+    fseek(fp, <span class="hljs-number">0</span>, SEEK_END);
+    <span class="hljs-keyword">long</span> size = ftell(fp);
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;image size = %ld\n&quot;</span>, size);
+
+    fseek(fp, <span class="hljs-number">0</span>, SEEK_SET);
+    <span class="hljs-keyword">size_t</span> nr_read = fread(ddr_base + offset, size, <span class="hljs-number">1</span>, fp);
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;payload size %zd\n&quot;</span>, nr_read);
+
+    fclose(fp);
+
+    fp = fopen(dtbfile, <span class="hljs-string">&quot;rb&quot;</span>);
+    <span class="hljs-keyword">if</span> (fp == <span class="hljs-literal">NULL</span>) {
+        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;No valid dtb file provided. Dtb in bootrom will be used.\n&quot;</span>);
+        <span class="hljs-keyword">return</span> ;
+    }
+
+    fseek(fp, <span class="hljs-number">0</span>, SEEK_END);
+    size = ftell(fp);
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;dtb size = %ld\n&quot;</span>, size);
+
+    fseek(fp, <span class="hljs-number">0</span>, SEEK_SET);
+    fread(ddr_base + offset + <span class="hljs-number">0x8</span>, size, <span class="hljs-number">1</span>, fp);
+
+    fclose(fp);
+}
+
+<span class="hljs-function"><span class="hljs-keyword">void</span>* <span class="hljs-title">create_map</span><span class="hljs-params">(size_t size, <span class="hljs-keyword">int</span> fd, off_t offset)</span> </span>{
+    <span class="hljs-keyword">void</span> *base = mmap(<span class="hljs-literal">NULL</span>, size, PROT_READ|PROT_WRITE, MAP_SHARED, fd, offset);
+
+    <span class="hljs-keyword">if</span> (base == <span class="hljs-literal">NULL</span>) {
+        perror(<span class="hljs-string">&quot;init_mem mmap failed:&quot;</span>);
+        close(fd);
+        <span class="hljs-built_in">exit</span>(<span class="hljs-number">1</span>);
+    }
+
+    <span class="hljs-keyword">return</span> base;
+}
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">init_map</span><span class="hljs-params">()</span> </span>{
+    fd = open(<span class="hljs-string">&quot;/dev/mem&quot;</span>, O_RDWR|O_SYNC);  
+    <span class="hljs-keyword">if</span> (fd == <span class="hljs-number">-1</span>)  {  
+        perror(<span class="hljs-string">&quot;init_map open failed:&quot;</span>);
+        <span class="hljs-built_in">exit</span>(<span class="hljs-number">1</span>);
+    } 
+
+    gpio_reset_base = create_map(GPIO_RESET_TOTAL_SIZE, fd, GPIO_RESET_BASE_ADDR);
+    ddr_base = create_map(DDR_TOTAL_SIZE, fd, DDR_BASE_ADDR);
+}
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">resetn</span><span class="hljs-params">(<span class="hljs-keyword">int</span> val)</span> </span>{
+    gpio_reset_base[<span class="hljs-number">0</span>] = val;
+}
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">finish_map</span><span class="hljs-params">()</span> </span>{
+    munmap((<span class="hljs-keyword">void</span> *)gpio_reset_base, GPIO_RESET_TOTAL_SIZE);
+    munmap((<span class="hljs-keyword">void</span> *)ddr_base, DDR_TOTAL_SIZE);
+    close(fd);
+}
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">(<span class="hljs-keyword">int</span> argc, <span class="hljs-keyword">char</span> *argv[])</span> </span>{
+    <span class="hljs-comment">/* map some devices into the address space of this program */</span>
+    init_map();
+
+    <span class="hljs-comment">/* reset RISC-V cores */</span>
+    resetn(<span class="hljs-number">0</span>);
+
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%s %s %s\n&quot;</span>, argv[<span class="hljs-number">1</span>], argv[<span class="hljs-number">2</span>], argv[<span class="hljs-number">6</span>]);
+    loader(argv[<span class="hljs-number">1</span>], argv[<span class="hljs-number">2</span>], strtoll(argv[<span class="hljs-number">6</span>], <span class="hljs-literal">NULL</span>, <span class="hljs-number">16</span>));
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%s %s %s\n&quot;</span>, argv[<span class="hljs-number">1</span>], argv[<span class="hljs-number">3</span>], argv[<span class="hljs-number">7</span>]);
+    loader(argv[<span class="hljs-number">1</span>], argv[<span class="hljs-number">3</span>], strtoll(argv[<span class="hljs-number">7</span>], <span class="hljs-literal">NULL</span>, <span class="hljs-number">16</span>));
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%s %s %s\n&quot;</span>, argv[<span class="hljs-number">1</span>], argv[<span class="hljs-number">4</span>], argv[<span class="hljs-number">8</span>]);
+    loader(argv[<span class="hljs-number">1</span>], argv[<span class="hljs-number">4</span>], strtoll(argv[<span class="hljs-number">8</span>], <span class="hljs-literal">NULL</span>, <span class="hljs-number">16</span>));
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%s %s %s\n&quot;</span>, argv[<span class="hljs-number">1</span>], argv[<span class="hljs-number">5</span>], argv[<span class="hljs-number">9</span>]);
+    loader(argv[<span class="hljs-number">1</span>], argv[<span class="hljs-number">5</span>], strtoll(argv[<span class="hljs-number">9</span>], <span class="hljs-literal">NULL</span>, <span class="hljs-number">16</span>));
+
+    <span class="hljs-comment">/* finish resetting RISC-V cores */</span>
+    resetn(<span class="hljs-number">3</span>);
+
+    finish_map();
+
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>; 
+}
+</code></pre>
+<p>&#x51FD;&#x6570;&#x5206;&#x6790;&#x56FE;&#xFF1A;</p>
+<p><img src="https://i.loli.net/2020/03/10/5CQtY2Nn4aovlW9.png" alt="&#x5C4F;&#x5E55;&#x5FEB;&#x7167; 2020-03-10 &#x4E0B;&#x5348;9.24.45.png"></p>
+<p>&#x8FD9;&#x6BB5;&#x4EE3;&#x7801;&#x4E0D;&#x9700;&#x8981;&#x6263;&#x7EC6;&#x8282;&#xFF0C;&#x5982;&#x679C;&#x5B66;&#x8FC7;linux&#x7CFB;&#x7EDF;&#x7F16;&#x7A0B;&#x4F1A;&#x6E05;&#x6670;&#x4E00;&#x4E9B;&#xFF0C;&#x5927;&#x6982;&#x610F;&#x601D;&#x662F;&#x5F00;&#x4E00;&#x7247;&#x5185;&#x5B58;&#xFF0C;&#x628A;&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#x5185;&#x6838;&#x6620;&#x5C04;&#x5230;&#x8FD9;&#x7247;&#x5185;&#x5B58;&#x4E0A;&#x8FD0;&#x884C;&#x3002;</p>
+<h3 id="tmux-&#x5E38;&#x7528;&#x547D;&#x4EE4;">tmux &#x5E38;&#x7528;&#x547D;&#x4EE4;</h3>
+<p>tmux&#x662F;&#x7528;&#x6765;&#x7EC8;&#x7AEF;&#x590D;&#x7528;&#x7684;&#xFF0C;&#x5728;&#x4E00;&#x4E2A;&#x7EC8;&#x7AEF;&#x4E0B;&#x53EF;&#x6253;&#x5F00;&#x591A;&#x4E2A;&#x7A97;&#x53E3;&#xFF0C;&#x8FD9;&#x5BF9;&#x8FD0;&#x884C;&#x591A;&#x4E2A;&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#x7684;&#x4F7F;&#x7528;&#x5341;&#x5206;&#x6709;&#x7528;&#x3002;</p>
+<pre><code>tmux new -s second-tmux
+tmux detach
+tmux a -t second-tmux
+tmux kill-session -t second-tmux
+%  // |
+&quot;  // &#x2014;&#x2014;
+o  //&#x5207;&#x6362;&#x5149;&#x6807;
+s  //&#x5207;&#x6362;&#x4F1A;&#x8BDD;
+</code></pre><h2 id="minicom&#x57FA;&#x672C;&#x914D;&#x7F6E;">minicom&#x57FA;&#x672C;&#x914D;&#x7F6E;</h2>
+<p>minicom&#x662F;&#x4E32;&#x53E3;&#xFF0C;linux&#x901A;&#x8FC7;&#x4E32;&#x53E3;&#x6765;&#x6253;&#x5370;&#x4FE1;&#x606F;&#x3002;</p>
+<h3 id="1&#x5B89;&#x88C5;minicom">1.&#x5B89;&#x88C5;minicom</h3>
+<p> <code>sudo apt-get install minicom</code></p>
+<h3 id="2minicom&#x914D;&#x7F6E;&#x53C2;&#x6570;">2.minicom&#x914D;&#x7F6E;&#x53C2;&#x6570;</h3>
+<p>&#x547D;&#x4EE4;&#x8FD0;&#x884C;<code>sudo minicom -s</code>&#x8FDB;&#x5165;&#x4E86;minicom&#x7684;&#x914D;&#x7F6E;&#x754C;&#x9762;&#xFF1A;</p>
+<h3 id="3minicom&#x57FA;&#x672C;&#x64CD;&#x4F5C;&#x5982;&#x4E0B;&#xFF1A;">3.minicom&#x57FA;&#x672C;&#x64CD;&#x4F5C;&#x5982;&#x4E0B;&#xFF1A;</h3>
+<pre><code>1&#xFF09;&#x9700;&#x4F7F;&#x7528;Ctrl+A &#x8FDB;&#x5165;&#x8BBE;&#x7F6E;&#x72B6;&#x6001;
+2&#xFF09;&#x6309;z&#x8FDB;&#x5165;&#x8BBE;&#x7F6E;&#x83DC;&#x5355;
+&#xFF08;1&#xFF09;O&#x952E;&#xFF1A;&#x6253;&#x5F00;&#x914D;&#x7F6E;&#x9009;&#x9879;&#xFF1B;
+&#xFF08;2&#xFF09;W&#x952E;&#xFF1A;&#x81EA;&#x52A8;&#x5377;&#x5C4F;&#x3002;&#x5F53;&#x663E;&#x793A;&#x7684;&#x5185;&#x5BB9;&#x8D85;&#x8FC7;&#x4E00;&#x884C;&#x4E4B;&#x5F8C;&#xFF0C;&#x81EA;&#x52A8;&#x5C06;&#x5F8C;&#x9762;&#x7684;&#x5185;&#x5BB9;&#x6362;&#x884C;&#x3002;&#x8FD9;&#x4E2A;&#x529F;&#x80FD;&#x5728;&#x67E5;&#x770B;&#x5185;&#x6838;&#x7684;&#x5553;&#x52A8;&#x4FE1;&#x606F;&#x65F6;&#x5F88;&#x6709;&#x7528;&#x3002;
+&#xFF08;3&#xFF09;C&#x952E;&#xFF1A;&#x6E05;&#x9664;&#x5C4F;&#x5E55;&#x7684;&#x663E;&#x793A;&#x5185;&#x5BB9;&#xFF1B;
+&#xFF08;4&#xFF09;B&#x952E;&#xFF1A;&#x6D4F;&#x89C8;minicom&#x7684;&#x5386;&#x53F2;&#x663E;&#x793A;&#xFF1B;
+&#xFF08;5&#xFF09;X&#x952E;&#xFF1A;&#x9000;&#x51FA;minicom&#xFF0C;&#x4F1A;&#x63D0;&#x793A;&#x786E;&#x8BA4;&#x9000;&#x51FA;&#x3002;
+</code></pre><h2 id="bbl&#x5206;&#x6790;">bbl&#x5206;&#x6790;</h2>
+<p>bbl(Berkeley Boot Loader)&#xFF0C;&#x662F;&#x4E00;&#x4E2A;bootloadr&#xFF0C;&#x7CFB;&#x7EDF;&#x542F;&#x52A8;bootloadr&#xFF0C;bootloader&#x542F;&#x52A8;&#x5185;&#x6838;&#xFF0C;bootloader+&#x5185;&#x6838;=&#x5B8C;&#x6574;&#x7684;&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#x3002;</p>
+<p><a href="https://github.com/LvNA-system/riscv-pk" target="_blank">&#x8BA1;&#x7B97;&#x6240;&#x7684;bbl</a></p>
+<p><a href="https://github.com/LearningOS/rcore_step_by_step_old2/tree/master/os/riscv-pk" target="_blank">rcore&#x7684;bbl</a></p>
+<p>rcore&#x7684;bbl&#x542F;&#x52A8;&#x8D77;&#x6765;&#x7684;&#x662F;32&#x4F4D;&#x7684;rcore&#xFF0C;&#x4EC5;&#x505A;&#x53C2;&#x8003;</p>
+<h2 id="opensbi&#x5206;&#x6790;">opensbi&#x5206;&#x6790;</h2>
+<p>opensbi&#x4E5F;&#x662F;&#x4E00;&#x4E2A;bootloader&#xFF0C;&#x5728;&#x6700;&#x65B0;&#x7684;qemu4.2&#x4E2D;&#xFF0C;&#x5DF2;&#x7ECF;&#x5185;&#x7F6E;&#x4E86;opensbi&#xFF0C;&#x4E0D;&#x9700;&#x8981;&#x989D;&#x5916;&#x4E0B;&#x8F7D;&#x4E86;&#x3002;</p>
+<h2 id="&#x79FB;&#x690D;&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#x51C6;&#x5907;">&#x79FB;&#x690D;&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#x51C6;&#x5907;</h2>
+<h4 id="0&#x3001;&#x542F;&#x52A8;os&#x7684;&#x6D41;&#x7A0B;">0&#x3001;&#x542F;&#x52A8;os&#x7684;&#x6D41;&#x7A0B;</h4>
+<p>labeled risc-v &#x63D0;&#x4F9B;&#x4E86;&#x4E00;&#x4E2A;&#x53EA;&#x6709;hello world&#x6700;&#x5C0F;&#x5316;&#x7684;linux&#xFF0C;&#x6211;&#x4EEC;&#x4ECE;&#x8FD9;&#x4E2A;&#x5165;&#x624B;&#x6765;&#x5206;&#x6790;&#x542F;&#x52A8;&#x7684;&#x6D41;&#x7A0B;&#x3002;</p>
+<blockquote>
+<h2 id="build-risc-v-image">Build RISC-V image</h2>
+<ul>
+<li>Build riscv-pk (which contains the bootloader), riscv-linux and riscv-rootfs with the following commands</li>
+</ul>
+<pre><code>mkdir build
+make -j sw  # change 16 to the number of cores according to your host
+</code></pre><p>If it is the first time you run this command, note that you will be asked to pull these repos under <code>../../sw</code>.</p>
+<p>After that, <code>linux.bin</code> will be generated under <code>build/</code>. This is a minimal rootfs only containing a <code>hello</code> program.</p>
+</blockquote>
+<p>&#x7ECF;&#x8FC7;&#x8FD9;&#x4E00;&#x6B65;&#x4F1A;&#x5728;build&#x6587;&#x4EF6;&#x5939;&#x4E0B;,&#x751F;&#x6210;linux.bin&#xFF0C;&#x6B64;linux.bin&#x53EF;&#x4EE5;&#x5728;&#x706B;&#x82D7;&#x4E0A;&#x76F4;&#x63A5;&#x8FD0;&#x884C;&#xFF0C;&#x600E;&#x4E48;&#x8FD0;&#x884C;&#x5462;&#xFF1F;</p>
+<p>&#x9996;&#x5148;&#x5229;&#x7528;&#x524D;&#x9762;&#x63D0;&#x5230;&#x8FC7;&#x7684;&#x901A;&#x8FC7;scp&#x547D;&#x4EE4;&#x6765;&#x8FDB;&#x884C;&#x672C;&#x5730;&#x548C;&#x706B;&#x82D7;&#x4E4B;&#x95F4;&#x7684;&#x901A;&#x4FE1;&#xFF0C;</p>
+<pre><code>$ scp -P 2234 linux.bin thu_chenyu@159.226.41.100:~
+$ scp linux.bin fidus84:/root/master/
+
+$ scp -P 2234 kernel.bin thu_chenyu@159.226.41.100:~
+$ scp kernel.bin fidus84:/root/master/
+</code></pre><p>&#x8FD9;&#x4E2A;&#x65F6;&#x5019;&#x5728;/master&#x76EE;&#x5F55;&#x4E0B;&#x5C31;&#x6709;&#x4E86;linux.bin &#x6587;&#x4EF6;&#x3002;&#x6B64;&#x6587;&#x4EF6;&#x5C31;&#x662F;&#x53EF;&#x4EE5;&#x8DD1;&#x7684;&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#x3002;</p>
+<p>&#x90A3;&#x4E48;&#x600E;&#x4E48;&#x8FD0;&#x884C;&#x8D77;&#x6765;&#x5462;&#xFF1F;</p>
+<p>1&#x3001;&#x5199;&#x4E00;&#x4E2A;&#x811A;&#x672C;</p>
+<p>&#x4EFF;&#x7167;smp_run&#x5199;&#x4E00;&#x4E2A;&#x811A;&#x672C;&#x3002;</p>
+<pre><code>#!/usr/bin/env bash
+
+#sysctl net.ipv4.ip_forward=0
+./nohype_settings 0
+./4-core-reset linux.bin 4.dtb.small 1.dtb 2.dtb 3.dtb 0x00000000 0x20000000 0x40000000 0x60000000
+
+#sh nat.sh
+#ssh-keygen -f &quot;/root/.ssh/known-hosts&quot; -R 192.168.1.2
+</code></pre><p>2&#x3001;&#x5F00;&#x542F;&#x4E32;&#x53E3;</p>
+<p>&#x56DE;&#x5230;/root&#x8DEF;&#x5F84;&#x4E0B;&#xFF0C;&#x5F00;&#x542F;&#x4E32;&#x53E3;</p>
+<pre><code>$ sh minicom.sh
+</code></pre><p><img src="https://i.loli.net/2020/04/02/GhSKRnZTWU714Ye.png" alt="&#x6253;&#x5F00;&#x4E32;&#x53E3;.png"></p>
+<p>3&#x3001;&#x8FD0;&#x884C;&#x811A;&#x672C;</p>
+<p><strong>&#x6CE8;&#x610F;&#xFF01;</strong>&#xFF1A;&#x53E6;&#x6253;&#x5F00;&#x4E00;&#x4E2A;&#x7EC8;&#x7AEF;&#x8FDE;&#x4E0A;&#x706B;&#x82D7;&#xFF0C;&#x8FD0;&#x884C;&#x521A;&#x521A;&#x5199;&#x7684;&#x811A;&#x672C;</p>
+<pre><code>$ cd master
+$ sh kernel_run
+</code></pre><p>&#x6B64;&#x65F6;&#x4E32;&#x53E3;&#x4F1A;&#x8F93;&#x51FA;&#x4E00;&#x8FDE;&#x4E32;&#x7684;&#x4FE1;&#x606F;&#xFF1A;</p>
+<p><img src="https://i.loli.net/2020/04/02/Gg2mVSlYLvQrEyo.png" alt="&#x5C4F;&#x5E55;&#x5FEB;&#x7167; 2020-04-02 &#x4E0B;&#x5348;9.44.58.png"></p>
+<p>&#x8BF4;&#x660E;linux.bin &#x5DF2;&#x7ECF;&#x8DD1;&#x8D77;&#x6765;&#x4E86;&#x3002;</p>
+<p>ps&#xFF1A;&#x4F46;&#x662F;&#x5982;&#x679C;&#x6211;&#x4EEC;&#x4F7F;&#x7528;&#x4E0A;&#x9762;&#x7684;&#x811A;&#x672C;&#x6765;&#x542F;&#x52A8;rCore&#x955C;&#x50CF;&#x65F6;&#xFF0C;&#x4F1A;&#x51FA;&#x73B0;&#x4E32;&#x53E3;&#x95EA;&#x70C1;&#x4E71;&#x7801;&#x7684;&#x60C5;&#x51B5;&#xFF0C;&#x8FD9;&#x4E2A;&#x89E3;&#x51B3;&#x65B9;&#x6CD5;&#x5728;&#x7B2C;&#x516D;&#x7AE0;&#x63D0;&#x53CA;&#x3002;</p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="1.安装环境.html" class="navigation navigation-prev " aria-label="Previous page: 1.安装环境">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="3.启动流程分析.html" class="navigation navigation-next " aria-label="Next page: 3.启动流程分析">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"2.火苗平台简介","level":"1.3","depth":1,"next":{"title":"3.启动流程分析","level":"1.4","depth":1,"path":"3.启动流程分析.md","ref":"3.启动流程分析.md","articles":[]},"previous":{"title":"1.安装环境","level":"1.2","depth":1,"path":"1.安装环境.md","ref":"1.安装环境.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"2.火苗平台简介.md","mtime":"2020-06-28T15:06:19.318Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-06-29T01:14:44.467Z"},"basePath":".","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="gitbook/gitbook.js"></script>
+    <script src="gitbook/theme.js"></script>
+    
+        
+        <script src="gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
